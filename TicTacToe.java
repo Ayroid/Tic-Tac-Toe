@@ -194,7 +194,7 @@ class TicTacToe{
         System.out.print("Do you want to play another match? Y/N: ");
         play=sc.next();
         }while(play.toUpperCase().equals("Y"));
-        System.out.println("\033[H\033[2JFinal Score!\nX:"+one+" O:"+two);
+        System.out.println("\033[H\033[2JFinal Score!\n  X:"+one+" O:"+two);
         sc.close();
     }
 }
