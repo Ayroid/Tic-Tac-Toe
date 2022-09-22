@@ -143,6 +143,7 @@ class TicTacToe{
     public static void main(String[] args) {
         String play;
         Scanner sc = new Scanner(System.in);
+        int one=0, two=0;
         System.out.print("\033[H\033[2J");
         System.out.println("Game Rules:\nX will play first!\nPress any Key and Enter to Start!");
         sc.next();
@@ -155,10 +156,12 @@ class TicTacToe{
         while(count!=9){
             if(T1.winnerCheck()=="X"){
                 winner=1;
+                one++;
                 break;
             }
             else if(T1.winnerCheck()=="O"){
                 winner=2;
+                two++;
                 break;
             }
             else{
@@ -191,6 +194,7 @@ class TicTacToe{
         System.out.print("Do you want to play another match? Y/N: ");
         play=sc.next();
         }while(play.toUpperCase().equals("Y"));
+        System.out.println("\033[H\033[2JFinal Score!\nX:"+one+" O:"+two);
         sc.close();
     }
 }
