@@ -143,11 +143,11 @@ class TicTacToe{
     public static void main(String[] args) {
         String play;
         Scanner sc = new Scanner(System.in);
-        do{
-        TicTacToe T1 = new TicTacToe();
         System.out.print("\033[H\033[2J");
         System.out.println("Game Rules:\nX will play first!\nPress any Key and Enter to Start!");
         sc.next();
+        do{
+        TicTacToe T1 = new TicTacToe();
         int x=0, winner=0;
         System.out.print("\033[H\033[2J");
         System.out.println("Let's Start!");
