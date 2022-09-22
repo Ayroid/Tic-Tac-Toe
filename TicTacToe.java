@@ -69,7 +69,7 @@ class TicTacToe{
         System.out.println();
     }
 
-    public boolean inputValidationCheck(int pos, String player){
+    public boolean inputValidationCheck(int pos, int player){
         String element="";
         int x=0,y=0;
         switch(pos){
@@ -128,7 +128,10 @@ class TicTacToe{
             break;
         }
         if(element == " "){
-            board[x][y]=player;
+            if(player == 0)
+            board[x][y]="X";
+            else
+            board[x][y]="O";
             return true;
         }
         else{
@@ -138,63 +141,56 @@ class TicTacToe{
     }
 
     public static void main(String[] args) {
-        TicTacToe T1 = new TicTacToe();
+        String play;
         Scanner sc = new Scanner(System.in);
+        do{
+        TicTacToe T1 = new TicTacToe();
         System.out.print("\033[H\033[2J");
-        System.out.println("Game Rules:\nX will play first!\nChoose: 1 for X & 2 for O");
-        int ch = sc.nextInt();
-        String players[]={"O","X"};
-        String choice = players[ch-1];
+        System.out.println("Game Rules:\nX will play first!\nPress any Key and Enter to Start!");
+        sc.next();
         int x=0, winner=0;
-        if(choice=="X" || choice=="O"){
-            System.out.print("\033[H\033[2J");
-            System.out.println("Let's Start!");
-            if(choice == "O"){
-                x=0;
+        System.out.print("\033[H\033[2J");
+        System.out.println("Let's Start!");
+        int count=0;
+        while(count!=9){
+            if(T1.winnerCheck()=="X"){
+                winner=1;
+                break;
+            }
+            else if(T1.winnerCheck()=="O"){
+                winner=2;
+                break;
             }
             else{
-                x=1;
-            }
-            int count=0;
-            while(count!=9){
-                if(T1.winnerCheck()=="X"){
-                    winner=1;
-                    break;
+                System.out.print("Turn: ");
+                if(x==0){
+                    System.out.println("X");
                 }
-                else if(T1.winnerCheck()=="O"){
-                    winner=2;
-                    break;
+                else if(x==1){
+                    System.out.println("O");
                 }
-                else{
-                    System.out.print("Turn: ");
-                    if(x==0){
-                        System.out.println("X");
-                    }
-                    else if(x==1){
-                        System.out.println("O");
-                    }
-                    T1.display();
-                    System.out.print("Enter Position: ");
-                    int pos = sc.nextInt();
-                    while(!(T1.inputValidationCheck(pos, players[x]))){
-                        System.out.print("Position Occupied!\nChoose Again: ");
-                        pos = sc.nextInt();
-                    }
-                    count++;
-                    x=(x+1)%2;
-                    System.out.print("\033[H\033[2J");
+                T1.display();
+                System.out.print("Enter Position: ");
+                int pos = sc.nextInt();
+                while(!(T1.inputValidationCheck(pos, x))){
+                    System.out.print("Position Occupied!\nChoose Again: ");
+                    pos = sc.nextInt();
                 }
+                count++;
+                x=(x+1)%2;
+                System.out.print("\033[H\033[2J");
             }
-            T1.display();
-            if(winner>0){
-                System.out.println("Player " + winner + " Won!");
-            }
-            else{
-                System.out.println("DRAW!");
-            }
+        }
+        T1.display();
+        if(winner>0){
+            System.out.println("Player " + winner + " Won!");
         }
         else{
-            System.out.println("Wrong Choice");
+            System.out.println("DRAW!");
         }
+        System.out.print("Do you want to play another match? Y/N: ");
+        play=sc.next();
+        }while(play.toUpperCase().equals("Y"));
+        sc.close();
     }
 }
