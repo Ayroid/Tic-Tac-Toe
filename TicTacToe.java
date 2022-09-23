@@ -139,6 +139,96 @@ class TicTacToe{
         }
     }
 
+    public void computerMoves(int computerChoice){
+        int control=0;
+        for(int i=0;i<8;i++){
+            String line="", positions="";
+            switch(i){
+                case 0:
+                line = board[0][0]+board[0][1]+board[0][2];
+                positions="789";
+                break;
+
+                case 1:
+                line = board[1][0]+board[1][1]+board[1][2];
+                positions="456";
+                break;
+
+                case 2:
+                line = board[2][0]+board[2][1]+board[2][2];
+                positions="123";
+                break;
+
+                case 3:
+                line = board[0][0]+board[1][1]+board[2][2];
+                positions="753";
+                break;
+
+                case 4:
+                line = board[0][2]+board[1][1]+board[2][0];
+                positions="951";
+                break;
+
+                case 5:
+                line = board[0][0]+board[1][0]+board[2][0];
+                positions="741";
+                break;
+
+                case 6:
+                line = board[0][1]+board[1][1]+board[2][1];
+                positions="852";
+                break;
+
+                case 7:
+                line = board[0][2]+board[1][2]+board[2][2];
+                positions="963";
+                break;
+            }
+            switch (line) {
+                case "OO ":
+                inputValidationCheck(Character.getNumericValue(positions.charAt(2)), computerChoice);
+                control=1;
+                break;
+
+                case "XX ":
+                inputValidationCheck(Character.getNumericValue(positions.charAt(2)), computerChoice);
+                control=1;
+                break;
+
+                case "O O":
+                inputValidationCheck(Character.getNumericValue(positions.charAt(1)), computerChoice);
+                control=1;
+                break;
+
+                case "X X":
+                inputValidationCheck(Character.getNumericValue(positions.charAt(1)), computerChoice);
+                control=1;
+                break;
+
+                case " OO":
+                inputValidationCheck(Character.getNumericValue(positions.charAt(0)), computerChoice);
+                control=1;
+                break;
+
+                case " XX":
+                inputValidationCheck(Character.getNumericValue(positions.charAt(0)), computerChoice);
+                control=1;
+                break;
+                
+                default:
+                Random rand = new Random();
+                int pos;
+                do{
+                    pos = rand.nextInt(1,10);
+                }while(!(inputValidationCheck(pos, computerChoice)));
+                control=1;
+                break;
+            }
+            if(control==1)
+            break;
+        }
+    }
+
     public static void main(String[] args) {
         String play;
         Scanner sc = new Scanner(System.in);
@@ -167,16 +257,17 @@ class TicTacToe{
                 System.out.print("Turn: ");
                 if(x==0){
                     System.out.println("X");
+                    T1.display();
+                    System.out.print("Enter Position: ");
+                    int pos = sc.nextInt();
+                    while(!(T1.inputValidationCheck(pos, x))){
+                        System.out.print("Position Occupied!\nChoose Again: ");
+                        pos = sc.nextInt();
+                    }
                 }
                 else if(x==1){
                     System.out.println("O");
-                }
-                T1.display();
-                System.out.print("Enter Position: ");
-                int pos = sc.nextInt();
-                while(!(T1.inputValidationCheck(pos, x))){
-                    System.out.print("Position Occupied!\nChoose Again: ");
-                    pos = sc.nextInt();
+                    T1.computerMoves(x);
                 }
                 count++;
                 x=(x+1)%2;
