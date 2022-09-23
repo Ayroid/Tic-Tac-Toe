@@ -153,7 +153,7 @@ class TicTacToe{
         System.out.print("\033[H\033[2J");
         System.out.println("Let's Start!");
         int count=0;
-        while(count!=9){
+        do{
             if(T1.winnerCheck()=="X"){
                 winner=1;
                 one++;
@@ -182,6 +182,16 @@ class TicTacToe{
                 count++;
                 x=(x+1)%2;
                 System.out.print("\033[H\033[2J");
+            }
+        }while(count!=9);
+        if(count == 9){
+            if(T1.winnerCheck()=="X"){
+                winner=1;
+                one++;
+            }
+            else if(T1.winnerCheck()=="O"){
+                winner=2;
+                two++;
             }
         }
         T1.display();
