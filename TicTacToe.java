@@ -276,7 +276,7 @@ class TicTacToe{
             play=sc.next();
             System.out.print("\033[H\033[2J");
         }while(play.toUpperCase().equals("Y"));
-        System.out.println("\033[H\033[2JFinal Score!\n  You:"+player+" Computer:"+comp);
+        System.out.println("\033[H\033[2JFinal Score!\nYou:"+player+" Computer:"+comp);
         sc.close();
     }
 }
