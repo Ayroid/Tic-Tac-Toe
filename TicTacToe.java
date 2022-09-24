@@ -211,17 +211,16 @@ class TicTacToe{
         do{
             System.out.print("Choose- X O: ");
             String ch=sc.next();
-            int x=0,y=0;
+            int turn=0,userChoice=0;
             if(ch.toUpperCase().equals("X")){
-                y=0;
+                userChoice=0;
             }
             else if(ch.toUpperCase().equals("O")){
-                y=1;
+                userChoice=1;
             }
             TicTacToe T1 = new TicTacToe();
             int winner=-1;
             System.out.print("\033[H\033[2J");
-            System.out.println("Let's Start!");
             int count=0;
             do{
                 if(T1.winnerCheck()=="X"){
@@ -233,20 +232,20 @@ class TicTacToe{
                     break;
                 }
                 else{
-                    if(x==y){
+                    if(turn==userChoice){
                         T1.display();
                         System.out.print("Enter Position: ");
                         int pos = sc.nextInt();
-                        while(!(T1.inputValidationCheck(pos, x))){
+                        while(!(T1.inputValidationCheck(pos, turn))){
                             System.out.print("Position Occupied!\nChoose Again: ");
                             pos = sc.nextInt();
                         }
                     }
                     else{
-                        T1.computerMoves(x);
+                        T1.computerMoves(turn);
                     }
                     count++;
-                    x=(x+1)%2;
+                    turn=(turn+1)%2;
                     System.out.print("\033[H\033[2J");
                 }
             }while(count!=9);
@@ -260,7 +259,7 @@ class TicTacToe{
             }
             T1.display();
             if(winner>-1){
-                if(winner==y){
+                if(winner==userChoice){
                     System.out.println("You Won!");
                     player++;
                 }
