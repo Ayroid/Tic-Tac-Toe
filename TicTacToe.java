@@ -1,6 +1,7 @@
 import java.util.*;
 class TicTacToe{
     String board[][] = new String[3][3];
+    
     TicTacToe(){
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
@@ -63,7 +64,7 @@ class TicTacToe{
                     System.out.print(board[i][j]);
                 }
             }
-            if(i<2)
+            if(i!=2)
             System.out.println("\n---------");
         }
         System.out.println();
@@ -205,7 +206,7 @@ class TicTacToe{
     public static void main(String[] args) {
         String play;
         Scanner sc = new Scanner(System.in);
-        int player=0, comp=0;
+        int playerScore=0, computerScore=0;
         System.out.print("\033[H\033[2J");
         System.out.println("Game Rules:\nX will play first!");
         do{
@@ -220,7 +221,6 @@ class TicTacToe{
             }
             TicTacToe T1 = new TicTacToe();
             int winner=-1;
-            System.out.print("\033[H\033[2J");
             int count=0;
             do{
                 if(T1.winnerCheck()=="X"){
@@ -232,6 +232,7 @@ class TicTacToe{
                     break;
                 }
                 else{
+                    System.out.print("\033[H\033[2J");
                     if(turn==userChoice){
                         T1.display();
                         System.out.print("Enter Position: ");
@@ -246,7 +247,6 @@ class TicTacToe{
                     }
                     count++;
                     turn=(turn+1)%2;
-                    System.out.print("\033[H\033[2J");
                 }
             }while(count!=9);
             if(count == 9){
@@ -261,11 +261,11 @@ class TicTacToe{
             if(winner>-1){
                 if(winner==userChoice){
                     System.out.println("You Won!");
-                    player++;
+                    playerScore++;
                 }
                 else{
                     System.out.println("Computer Won!");
-                    comp++;
+                    computerScore++;
                 }
             }
             else{
@@ -275,7 +275,7 @@ class TicTacToe{
             play=sc.next();
             System.out.print("\033[H\033[2J");
         }while(play.toUpperCase().equals("Y"));
-        System.out.println("\033[H\033[2JFinal Score!\nYou:"+player+" Computer:"+comp);
+        System.out.println("\033[H\033[2JFinal Score!\nYou:"+playerScore+" Computer:"+computerScore);
         sc.close();
     }
 }
