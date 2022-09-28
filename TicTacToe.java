@@ -257,6 +257,7 @@ class TicTacToe{
                     winner=1;
                 }
             }
+            System.out.print("\033[H\033[2J");
             T1.display();
             if(winner>-1){
                 if(winner==userChoice){
