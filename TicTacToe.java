@@ -1,7 +1,7 @@
 import java.util.*;
-class TicTacToe{
+public class TicTacToe {
     String board[][] = new String[3][3];
-    
+
     TicTacToe(){
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
@@ -54,67 +54,51 @@ class TicTacToe{
         return "1";
     }
 
-    public void display(){
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
-                if(j==1){
-                    System.out.print(" | "+board[i][j]+" | ");
-                }
-                else{
-                    System.out.print(board[i][j]);
-                }
-            }
-            if(i!=2)
-            System.out.println("\n---------");
-        }
-        System.out.println();
-    }
-
-    public boolean inputValidationCheck(int pos, int player){
+    public boolean inputValidationCheck(char pos, int player){
         String element="";
         int x=0,y=0;
         switch(pos){
-            case 7:
+            case '7':
             element = board[0][0];
             x=0; y=0;
             break;
             
-            case 8:
+            case '8':
             element = board[0][1];
             x=0; y=1;
             break;
 
-            case 9:
+            case '9':
             element = board[0][2];
             x=0; y=2;
             break;
 
-            case 4:
+            case '4':
             element = board[1][0];
             x=1; y=0;
             break;
 
-            case 5:
+            case '5':
             element = board[1][1];
             x=1; y=1;
             break;
 
-            case 6:
+            case '6':
             element = board[1][2];
             x=1; y=2;
             break;
 
-            case 1:
+            case '1':
             element = board[2][0];
             x=2; y=0;
             break;
 
-            case 2:
+            case '2':
             element = board[2][1];
             x=2; y=1;
             break;
 
-            case 3:
+            case '3':
             element = board[2][2];
             x=2; y=2;
             break;
@@ -178,17 +162,17 @@ class TicTacToe{
             switch (line) {
                 case "OO ":
                 case "XX ":
-                inputValidationCheck(Character.getNumericValue(positions.charAt(2)), computerChoice);
+                inputValidationCheck(positions.charAt(2), computerChoice);
                 return;
 
                 case "O O":
                 case "X X":
-                inputValidationCheck(Character.getNumericValue(positions.charAt(1)), computerChoice);
+                inputValidationCheck(positions.charAt(1), computerChoice);
                 return;
 
                 case " OO":
                 case " XX":
-                inputValidationCheck(Character.getNumericValue(positions.charAt(0)), computerChoice);
+                inputValidationCheck(positions.charAt(0), computerChoice);
                 return;
                 
                 default:
@@ -199,26 +183,45 @@ class TicTacToe{
         int pos;
         do{
             pos = rand.nextInt(1,10);
-        }while(!(inputValidationCheck(pos, computerChoice)));
+        }while(!(inputValidationCheck((char)('0'+pos), computerChoice)));
         return;
     }
 
-    public static void main(String[] args) {
+    public void display(){
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(j==1){
+                    System.out.print(" | "+board[i][j]+" | ");
+                }
+                else{
+                    System.out.print(board[i][j]);
+                }
+            }
+            if(i!=2)
+            System.out.println("\n---------");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String args []) {
         String play;
         Scanner sc = new Scanner(System.in);
         int playerScore=0, computerScore=0;
         System.out.print("\033[H\033[2J");
         System.out.println("Game Rules:\nX will play first!");
         do{
+            int turn=0,userChoice=-1;
             System.out.print("Choose- X O: ");
-            String ch=sc.next();
-            int turn=0,userChoice=0;
-            if(ch.toUpperCase().equals("X")){
-                userChoice=0;
-            }
-            else if(ch.toUpperCase().equals("O")){
-                userChoice=1;
-            }
+            do{
+                String ch=sc.next();
+                if(ch.toUpperCase().equals("X"))
+                    userChoice=0;
+                else if(ch.toUpperCase().equals("O"))
+                    userChoice=1;
+                else
+                    System.out.println("\033[H\033[2JWrong Choice!\nChoose Again- X O: ");
+            }while(userChoice==-1);
+
             TicTacToe T1 = new TicTacToe();
             int winner=-1;
             int count=0;
@@ -233,13 +236,30 @@ class TicTacToe{
                 }
                 else{
                     System.out.print("\033[H\033[2J");
+                    char pos=' ';
                     if(turn==userChoice){
-                        T1.display();
-                        System.out.print("Enter Position: ");
-                        int pos = sc.nextInt();
+                        while(true){
+                            T1.display();
+                            System.out.print("Enter Position: ");
+                            pos = sc.next().charAt(0);
+                            if(pos>=49 && pos<=57)
+                                break;
+                            else{
+                                System.out.println("\033[H\033[2JWrong Choice!");
+                            }
+                        }
                         while(!(T1.inputValidationCheck(pos, turn))){
-                            System.out.print("Position Occupied!\nChoose Again: ");
-                            pos = sc.nextInt();
+                            System.out.println("\033[H\033[2JPosition Occupied!");
+                            while(true){
+                                T1.display();
+                                System.out.print("Enter Position: ");
+                                pos = sc.next().charAt(0);
+                                if(pos>=49 && pos<=57)
+                                    break;
+                                else{
+                                    System.out.println("\033[H\033[2J\nWrong Choice!");
+                                }
+                            }
                         }
                     }
                     else{
@@ -272,7 +292,7 @@ class TicTacToe{
             else{
                 System.out.println("DRAW!");
             }
-            System.out.print("Do you want to play another match? Y/N: ");
+            System.out.print("Press Y to play again!: ");
             play=sc.next();
             System.out.print("\033[H\033[2J");
         }while(play.toUpperCase().equals("Y"));
