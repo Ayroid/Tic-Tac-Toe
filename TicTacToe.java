@@ -290,7 +290,7 @@ public class TicTacToe {
                 }
             }
             else{
-                System.out.println("DRAW!");
+                System.out.println("It's a DRAW!");
             }
             System.out.print("Press Y to play again!: ");
             play=sc.next();
